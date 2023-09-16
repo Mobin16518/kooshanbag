@@ -12,7 +12,7 @@ class ProductList(View):
             category = get_object_or_404(Category, slug=category_slug)
             products = products.filter(category=category)
         return render(request,
-                  'product/p_list.html',
+                  'products/list.html',
                   {'category': category,
                    'categories': categories,
                    'products': products})
@@ -25,6 +25,6 @@ class ProductDetail(View):
                                 id=pk,
                                 slug=slug,
                                 available=True)
-        return render(request,'product/p_detail.html',{
+        return render(request,'products/detail.html',{
             'product' : product
         })

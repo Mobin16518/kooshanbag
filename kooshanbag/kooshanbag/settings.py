@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products.apps.ProductsConfig',
     'account.apps.AccountConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,7 @@ AUTH_USER_MODEL = "account.User"
 
 # Ghasedak Api Key
 GAHSEDAK_API_KEY =  ghasedakpack.Ghasedak("")
+
+
+# CART_SESSION_ID
+CART_SESSION_ID = "cart"
