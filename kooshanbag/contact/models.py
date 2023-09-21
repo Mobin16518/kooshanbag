@@ -12,7 +12,10 @@ class Contact(models.Model):
     adress = models.CharField(max_length=200, 
                               verbose_name="آدرس")
     
-    instagram = models.URLField(verbose_name="لینک بیج اینستا")
+    instagram_id = models.CharField(max_length=200,
+                                    verbose_name="آیدی اینستا")
+    
+    instagram_url = models.URLField(verbose_name="لینک بیج اینستا", null=True)
     
     
     

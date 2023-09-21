@@ -1,5 +1,6 @@
 from django.db import models
-from django.urls import reverse
+from django.core.validators import MinValueValidator, \
+                                   MaxValueValidator
 
 class Category(models.Model):
     name = models.CharField(max_length=200, 
@@ -8,26 +9,72 @@ class Category(models.Model):
                             verbose_name="اسلاگ دسته بندی", unique=True)
 
     class Meta:
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
         ordering = ['name']
         indexes = [
             models.Index(fields=['name']),
         ]
-        verbose_name = 'category'
-        verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('shop:product_list_by_category',
-                       args=[self.slug])
 
 
+
+class Color(models.Model):
+    color = models.CharField(max_length=200, 
+                             verbose_name="رنگ", unique=True)
+    
+    
+    class Meta:
+        verbose_name = "رنگ"
+        verbose_name_plural = "رنگ ها"
+
+    
+    
+    def __str__(self):
+        return self.color
+    
+
+
+class Image(models.Model):
+    image = models.ImageField(verbose_name="تصویر", 
+                              upload_to="product/more/image/%y/%m/%d")
+    
+    
+    
+    class Meta:
+        verbose_name = "تصویر"
+        verbose_name_plural = "تصویر ها"
+        
+
+
+
+class Size(models.Model):
+    size = models.CharField(max_length=200, 
+                            verbose_name="سایز", unique=True) 
+    
+    
+    class Meta:
+        verbose_name = "سایز"
+        verbose_name_plural = "سایز ها"
+        
+    
+    def __str__(self):
+        return self.size
+        
+    
+    
 class Product(models.Model):
     category = models.ForeignKey(Category,
                                  verbose_name="دسته بندی محصول",
                                  related_name='products',
                                  on_delete=models.CASCADE)
+    
+    size = models.ForeignKey(Size,
+                             on_delete=models.CASCADE,
+                             verbose_name="سایز محصول")
     
     name = models.CharField(verbose_name="نام محصول",
                              max_length=200)
@@ -39,8 +86,13 @@ class Product(models.Model):
     image = models.ImageField(verbose_name="تصویر اصلی محصول",
                                upload_to='products/%Y/%m/%d', blank=True)
     
-    description = models.TextField(verbose_name="توضیحات محصول", 
-                                    blank=True)
+    images = models.ManyToManyField(Image, 
+                                    verbose_name="تصاویر محصول")
+    
+    description = models.TextField(verbose_name="توضیحات محصول", blank=True)
+    
+    colors = models.ManyToManyField(Color, 
+                                    verbose_name="رنگ های موجود محصول")
     
     price = models.IntegerField(verbose_name="قیمت محصول")
     
@@ -51,7 +103,11 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+
+
     class Meta:
+        verbose_name = "محصول"
+        verbose_name_plural = "محصولات"
         ordering = ['name']
         indexes = [
             models.Index(fields=['id', 'slug']),
@@ -59,9 +115,10 @@ class Product(models.Model):
             models.Index(fields=['-created']),
         ]
 
+
+
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('shop:product_detail',
-                       args=[self.id, self.slug])
+
+

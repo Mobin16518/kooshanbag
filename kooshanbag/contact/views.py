@@ -9,10 +9,10 @@ from .forms import UserContactForm
 
 class ContactUs(View):
     def get(self, request):
-        contact = Contact.objects.all()
+        contacts = Contact.objects.all()
         form = UserContactForm
         return render(request, 'contact/contact.html', {
-            'contact' : contact,
+            'contacts' : contacts,
             'form' : form
         })
         

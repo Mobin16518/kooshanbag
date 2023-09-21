@@ -174,98 +174,54 @@
         <!-- end menubar area -->
     </header>
     <!-- end header area -->
-    <br>
-    <br>
-    <br>
-    <!-- start category area -->
-    <section class="shop-page">
+
+    <!-- start touch area -->
+    <section class="contact-page touch p-80">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 home1 trending">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h3>در تماس باشید</h3>
+                    </div>
+                </div>
+                <div class="col-xxl-10 offset-xxl-1">
                     <div class="row">
-                        {% for product in products %}
-                        <div class="col-xl-1-5 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single">
-                                <div class="image">
-                                    <a href="shop-detail-left.html">
-                                        <img src="{{ product.image }}" class="img-main" alt="Product">
-                                    </a>
-                                    <a href="shop-detail-left.html">
-                                        <img src="{{ product.image }}" class="img-hover" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="content">
-                                    <a href="shop-detail-left.html">
-                                        <h6>{{ product.name }}</h6>
-                                    </a>
-                                    <p> - {{ product.price }} تومان</p>
-                                    <ul class="rating d-flex">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                    <div class="action">
-                                        <ul class="d-flex">
-                                            <li>
-                                                <a href="wishlist.html">
-                                                    <i class="flaticon-heart"></i>
-                                                    <p class="my-tooltip">
-                                                        علاقه مندی
-                                                    </p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="cart.html">
-                                                    <i class="flaticon-shopping-cart-1"></i>
-                                                    <p class="my-tooltip">
-                                                        خرید
-                                                    </p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                    <i class="flaticon-visibility"></i>
-                                                    <p class="my-tooltip">
-                                                        نمایش
-                                                    </p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="compare.html">
-                                                    <i class="flaticon-refresh"></i>
-                                                    <p class="my-tooltip">
-                                                        مقایسه
-                                                    </p>
-                                                </a>
-                                            </li>
-                                        </ul>
+                        <div class="col-lg-4 order-1 order-lg-0">
+                            <ul class="address">
+                                <li>
+                                    <div class="icon">
+                                        <i class="far fa-map"></i>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="text">
+                                        <h5>نشانی</h5>
+                                        <p>تهران، زعفرانیه</p>
+                                        <p>قم، پردیسان</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <i class="flaticon-phone"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h5>تلفن</h5>
+                                        <p>09123456789</p>
+                                        <p>09123456780</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <i class="flaticon-mail"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h5>اینستاگرام</h5>
+                                        <p>Mahdi__037</p>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                        {% endfor %}
-                        <!-- pagination -->
-                        <div class="col-lg-12">
-                            <div class="pages">
-                                {% if products.has_other_pages %}
-                                <ul class="d-flex justify-content-center">
-                                    {% if products.has_previous %}
-                                    <li><a href="?page={{ products.previous_page_number }}"><i class="flaticon-chevron"></i></a></li>
-                                    {% endif %}
-                                    {% for i in products.paginator.page_range %}
-                                        {% if products.number == i %}
-                                            <li><a class="active">{{ i }}</a></li>
-                                        {% else %}
-                                            <li><a href="?page={{ i }}">{{ i }}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% if products.has_next %}
-                                        <li><a href="?page={{ products.next_page_number }}"><i class="flaticon-chevron-1"></i></a></li>
-                                    {% endif %}
-                                </ul>
-                                {% endif %}
+                        <div class="col-lg-8 order-0 order-lg-1">
+                            <div class="map-image text-center">
+                                <img src="assets/images/contact/map.png" alt="Map">
                             </div>
                         </div>
                     </div>
@@ -273,7 +229,66 @@
             </div>
         </div>
     </section>
-    <!-- end category area -->
+    <!-- end touch area -->
+
+    <!-- end newsletter area -->
+    <section class="contact-page newsletter pb-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-10 offset-xxl-1">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="location">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d209961.5936066414!2d50.711977847738744!3d34.688784481605666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f93bb6eb88ce195%3A0xcc35bec1c2604470!2sQom%2C%20Qom%20Province%2C%20Iran!5e0!3m2!1sen!2s!4v1645272204884!5m2!1sen!2s"
+                                    width="450" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <form action="#!">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label for="name">
+                                            <input type="text" id="name" placeholder="نام" class="inputs">
+                                            <i class="flaticon-user-1"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="email">
+                                            <input type="email" id="email" placeholder="ایمیل" class="inputs">
+                                            <i class="flaticon-mail-open"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="phn">
+                                            <input type="tel" id="phn" placeholder="تلفن" class="inputs">
+                                            <i class="flaticon-phone"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="sub">
+                                            <input type="text" id="sub" placeholder="موضوع" class="inputs">
+                                            <i class="far fa-edit"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <label for="msg" class="msg">
+                                            <textarea class="inputs" id="msg" placeholder="پیام"></textarea>
+                                            <i class="fas fa-comment-dots"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <button type="submit">ارسال پیام</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end newsletter area -->
 
     <!-- start overview area -->
     <section class="home1 overview">
