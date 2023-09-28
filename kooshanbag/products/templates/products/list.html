@@ -187,15 +187,15 @@
                         <div class="col-xl-1-5 col-lg-4 col-md-6 col-sm-6">
                             <div class="single">
                                 <div class="image">
-                                    <a href="shop-detail-left.html">
-                                        <img src="{{ product.image }}" class="img-main" alt="Product">
+                                    <a href="{% url 'products:products_detail' product.id product.slug %}">
+                                        <img src="{{ product.image_1.url }}" class="img-main" alt="Product">
                                     </a>
-                                    <a href="shop-detail-left.html">
-                                        <img src="{{ product.image }}" class="img-hover" alt="Product">
+                                    <a href="{% url 'products:products_detail' product.id product.slug %}">
+                                        <img src="{{ product.image_2.url }}" class="img-hover" alt="Product">
                                     </a>
                                 </div>
                                 <div class="content">
-                                    <a href="shop-detail-left.html">
+                                    <a href="{% url 'products:products_detail' product.id product.slug %}">
                                         <h6>{{ product.name }}</h6>
                                     </a>
                                     <p> - {{ product.price }} تومان</p>
@@ -209,7 +209,7 @@
                                     <div class="action">
                                         <ul class="d-flex">
                                             <li>
-                                                <a href="wishlist.html">
+                                                <a href="{% url 'products:products_detail' product.id product.slug %}">
                                                     <i class="flaticon-heart"></i>
                                                     <p class="my-tooltip">
                                                         علاقه مندی
@@ -217,7 +217,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="cart.html">
+                                                <a href="{% url 'products:products_detail' product.id product.slug %}">
                                                     <i class="flaticon-shopping-cart-1"></i>
                                                     <p class="my-tooltip">
                                                         خرید
@@ -225,18 +225,10 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <a href="{% url 'products:products_detail' product.id product.slug %}" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     <i class="flaticon-visibility"></i>
                                                     <p class="my-tooltip">
                                                         نمایش
-                                                    </p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="compare.html">
-                                                    <i class="flaticon-refresh"></i>
-                                                    <p class="my-tooltip">
-                                                        مقایسه
                                                     </p>
                                                 </a>
                                             </li>

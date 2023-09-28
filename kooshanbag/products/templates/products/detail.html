@@ -181,7 +181,13 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-6 order-1 order-md-0">
                             <div class="detail-content">
-                                <p class="stock">دسترسی:<span> در انبار</span></p>
+                                {% if product.available == True %}
+                                    <p class="stock">وضعیت:<span> در انبار</span></p>
+                                    <br>
+                                    <p class="stock">تعداد محصول:<span>{{ product.quantity }}</span></p>
+                                {% else %}
+                                    <p class="stock">وضعیت:<span>این محصول موجود نیست</span></p>
+                                {% endif %}
                                 <h5>{{ product.name }}</h5>
                                 <div class="review-area d-flex align-items-center">
                                     <ul class="rating d-flex">
@@ -191,48 +197,43 @@
                                         <li><i class="fas fa-star"></i></li>
                                         <li><i class="fas fa-star"></i></li>
                                     </ul>
-                                    <p>(۲ نظر مشتری)</p>
                                 </div>
                                 <h5>{{ product.price}} تومان</h5>
                                 <p class="desc">{{ product.description }}</p>
 
-                                <div class="color-pallate d-flex align-items-center">
-                                    <p>رنگ : </p>
-                                    <ul class="d-flex">
-                                        {% for colors in product.colors.objects.all %}
-                                        <li>
-                                            {{ colors.color }}
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
                                 <div class="category">
                                     <p>دسته بندی : <a href="{% url 'products:products_list_filter' %}">{{ product.category }}</a></p>
                                 </div>
-
-                                <div class="border-area">
-                                    <div class="cart-part d-flex align-items-center">
-                                        <div class="d-flex number-spinner">
-                                            <button data-dir="dwn" class="down-btn"><i class="fas fa-minus"></i></button>
-                                            <input type="text" class="form-control text-center input-value" value="1">
-                                            <button data-dir="up" class="up-btn"><i class="fas fa-plus"></i></button>
-                                        </div>
-                                        <a href="#!" class="cart">سبد خرید <span class="btn-dot"></span></a>
-                                        <div class="add-more d-flex align-items-center">
-                                            <a href="#!"><i class="flaticon-heart"></i></a>
-                                            <a href="#!"><i class="flaticon-refresh"></i></a>
+                                
+                                <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                                    {%  csrf_token %}
+                                    <div class="color-pallate d-flex align-items-center">
+                                        <p>رنگ : </p>
+                                        <ul class="d-flex">
+                                            {% for colors in product.colors.all %}
+                                            <input type="radio" name="color" value="{{ colors.color }}" class="d-flex">
+                                            <li>
+                                                <p>{{ colors.color }}</p>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+    
+                                    <div class="border-area">
+                                        <div class="cart-part d-flex align-items-center">
+                                            <div class="d-flex number-spinner">
+                                                <button data-dir="dwn" class="down-btn"><i class="fas fa-minus"></i></button>
+                                                <input type="text" class="form-control text-center input-value" value="1" name="quantity">
+                                                <button data-dir="up" class="up-btn"><i class="fas fa-plus"></i></button>
+                                            </div>
+                                            <button type="submit" class="cart">سبد خرید <span class="btn-dot"></span></button>
+                                            <div class="add-more d-flex align-items-center">
+                                                <a href="#!"><i class="flaticon-heart"></i></a>
+                                                <a href="{% url 'products:products_detail' product.id product.slug %}"><i class="flaticon-refresh"></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="share d-flex align-items-center">
-                                    <h5>اشتراک گذاری : </h5>
-                                    <ul class="d-flex">
-                                        <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#!"><i class="fab fa-pinterest-p"></i></a></li>
-                                        <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                                        <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                                    </ul>
-                                </div>
+                                </form>
                             </div>
                         </div>
 
@@ -241,23 +242,29 @@
                                 <div class="product-gallery swiper-container">
                                     <div class="swiper-wrapper">
                                         <div class="item swiper-slide">
-                                            <img id="zoom_01" src="{{ product.image.url }}" alt="Product" data-zoom-image="{{ product.image.url }}">
+                                            <img id="zoom_01" src="{{ product.image_1.url }}" alt="Product" data-zoom-image="{{ product.image_1.url }}">
                                         </div>
-                                        {% for image in product.images_set.all %}
                                         <div class="item swiper-slide">
-                                            <img id="zoom_02" src="assets/images/shop/img2.jpg" alt="Product" data-zoom-image="assets/images/shop/img2.jpg">
+                                            <img id="zoom_01" src="{{ product.image_2.url }}" alt="Product" data-zoom-image="{{ product.image_2.url }}">
                                         </div>
-                                        {% endfor%}
+                                        {% for images in product.product_images.all %}
+                                        <div class="item swiper-slide">
+                                            <img id="zoom_01" src="{{ images.image.url }}" alt="Product" data-zoom-image="{{ images.image.url }}">
+                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="product-thumb swiper-container">
                                     <div class="swiper-wrapper">
                                         <div class="item swiper-slide">
-                                            <img src="{{ product.image.url }}" alt="Product">
+                                            <img src="{{ product.image_1.url }}" alt="Product">
                                         </div>
-                                        {% for image in product.images.objects.all %}
                                         <div class="item swiper-slide">
-                                            <img src="assets/images/shop/img-sm2.jpg" alt="Product">
+                                            <img src="{{ product.image_2.url }}" alt="Product">
+                                        </div>
+                                        {% for images in product.product_images.all %}
+                                        <div class="item swiper-slide">
+                                            <img src="{{ images.image.url }}" alt="Product">
                                         </div>
                                         {% endfor %}
                                     </div>
@@ -281,109 +288,67 @@
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">توضیحات</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">مرور <span>(۲)</span></button>
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">مرور <span></span></button>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            {% for desciptions in product.product_descriptions.all %}
                             <div class="description">
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
-                                    بهبود ابزارهای کاربردی می باشد</p>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
-                                    بهبود ابزارهای کاربردی می باشد</p>
+                                <p>{{ desciptions.description }}</p>
                             </div>
+                            {% endfor %}
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="row">
                                 <div class="col-lg-7">
                                     <ul class="comment">
+                                        {% for comment in product.comments.all %}
                                         <li class="item d-flex">
                                             <div class="image">
                                                 <a href="#!">
-                                                    <img src="assets/images/shop/review1.jpg" alt="Review Image">
+                                                    <img src="{% static 'assets/images/shop/review1.jpg' %}" alt="Review Image">
                                                 </a>
                                             </div>
                                             <div class="media-body">
-                                                <ul class="rating d-flex">
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                </ul>
-                                                <a href="#!">
-                                                    <h6>سهراب سپهری</h6>
+                                                
+                                                <a href="">
+                                                    <h6>{{ comment.user.f_name }}</h6>
                                                 </a>
-                                                <a href="#!">
-                                                    <p>۱۱ - فروردین</p>
+                                                <a href="">
+                                                    <p>{{ comment.created }}</p>
                                                 </a>
-                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+                                                <P>{{ comment.comment }}</P>
                                             </div>
                                         </li>
-                                        <li class="item d-flex">
-                                            <div class="image">
-                                                <a href="#!">
-                                                    <img src="assets/images/shop/review2.jpg" alt="Review Image">
-                                                </a>
-                                            </div>
-                                            <div class="media-body">
-                                                <ul class="rating d-flex">
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                    <li><i class="fas fa-star"></i></li>
-                                                </ul>
-                                                <a href="#!">
-                                                    <h6>مهراد مستوفی</h6>
-                                                </a>
-                                                <a href="#!">
-                                                    <p>۱۱ -فروردین</p>
-                                                </a>
-                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است </p>
-                                            </div>
-                                        </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="add-review">
+                                        {% if request.user.is_authenticated %}
                                         <h6>یک نقد اضافه کنید</h6>
-                                        <p>آدرس ایمیل شما منتشر نخواهد شد</p>
+                                        <p>آدرس ایمیل و شماره ی شما منتشر نخواهد شد</p>
                                         <!-- Rating Stars Box -->
-                                        <div class="rating-stars d-flex">
-                                            <p>امتیاز دهید</p>
-                                            <ul id="stars">
-                                                <li class='star' title='بد' data-value='1'>
-                                                    <i class='fas fa-star fa-fw'></i>
-                                                </li>
-                                                <li class='star' title='متوسط' data-value='2'>
-                                                    <i class='fas fa-star fa-fw'></i>
-                                                </li>
-                                                <li class='star' title='خوب' data-value='3'>
-                                                    <i class='fas fa-star fa-fw'></i>
-                                                </li>
-                                                <li class='star' title='عالی' data-value='4'>
-                                                    <i class='fas fa-star fa-fw'></i>
-                                                </li>
-                                                <li class='star' title='بهترین!!!' data-value='5'>
-                                                    <i class='fas fa-star fa-fw'></i>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <form action="#">
-                                            <textarea placeholder="نقد شما*" class="inputs" required></textarea>
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            {{ form.comment }}
                                             <div class="row">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <input type="text" placeholder="نام*" class="inputs" required>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <input type="email" placeholder="ایمیل*" class="inputs" required>
-                                                </div>
                                                 <div class="col-lg-12">
                                                     <button type="submit">ارسال <span class="btn-dot"></span></button>
                                                 </div>
                                             </div>
                                         </form>
+                                        {% else %}
+                                        <h6>لطفا وارد حساب کاربری خود شوید</h6>
+                                        <p>برای نظر دادن نیاز است که اول وارد حساب کاربری خود بشوید</p>
+                                        <br>
+                                        <div>
+                                            <a href="{% url 'account:user_login' %}">
+                                                <button type="submit" class="button-style1 btn-dot">ورود</button>
+                                            </a>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

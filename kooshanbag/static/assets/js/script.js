@@ -26,7 +26,6 @@ Developer: Najmul Huda Eimon
 16: product details slider
 17: product details slider tab
 18: contact page Google Map
- 
 ====================================================================*/
 
 $(function() {

@@ -103,10 +103,8 @@ class Otp(models.Model):
     email = models.EmailField(
         verbose_name="ایمیل",
         max_length=255,
-        unique=True,
-    )
-    phone = models.CharField(verbose_name="شماره تلفن",
-                                   max_length=11, unique=True)
+        )
+    phone = models.IntegerField(verbose_name="شماره تلفن", max_length=11)
     
     f_name = models.CharField(verbose_name="نام",
                               max_length=200, null=True)

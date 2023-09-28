@@ -47,6 +47,8 @@
 
     <!-- responsive -->
     <link rel="stylesheet" href="{% static 'assets/css/responsive.css'%}">
+
+    
 </head>
 
 <body>
@@ -185,114 +187,85 @@
                         <div class="col-xl-4 col-lg-4">
                             <div class="row">
                                 <div class="content sidebar">
-                                    <!-- search  -->
-                                    <div class="section search">
-                                        <form action="#!">
-                                            <input type="search" placeholder="جستجو..." class="inputs">
-                                            <button type="submit"><i class="fas fa-search"></i></button>
-                                        </form>
-                                    </div>
-
-                                    <!-- category -->
-                                    <div class="section category">
-                                        <div class="title">
-                                            <h5>دسته بندی ها</h5>
+                                    <form action="" method="">
+                                        <!-- {% csrf_token  %} -->
+                                        <!-- category -->
+                                        <div class="section color">
+                                            <div class="title">
+                                                <h5>دسته بندی ها</h5>
+                                            </div>
+                                            <ul>
+                                                {% for category in categories %}
+                                                    <li>
+                                                        <a class="d-flex justify-content-between">
+                                                            <input type="radio" name="category" value="{{ category.id }}">
+                                                            <p>{{ category.name }}</p>
+                                                            <p>({{ category.id }})</p>
+                                                        </a>
+                                                    </li>
+                                                    <hr>
+                                                {% endfor %}
+                                            </ul>
                                         </div>
-                                        <ul>
-                                            <li>
-                                                <a href="category.html" class="d-flex justify-content-between">
-                                                    <p>صندلی میز ناهارخوری </p>
-                                                    <p>(۰۷)</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="category.html" class="d-flex justify-content-between">
-                                                    <p>مبلمان محبوب</p>
-                                                    <p>(۱۷)</p>
-                                                </a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="category.html" class="d-flex justify-content-between">
-                                                    <p>هال</p>
-                                                    <p>(۰۷)</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="category.html" class="d-flex justify-content-between">
-                                                    <p>اتاق خواب </p>
-                                                    <p>(۱۲)</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="category.html" class="d-flex justify-content-between">
-                                                    <p>ست مبل لوکس</p>
-                                                    <p>(۲۰)</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="category.html" class="d-flex justify-content-between">
-                                                    <p>کابینت سایز بزرگ</p>
-                                                    <p>(۲۲)</p>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="category.html" class="d-flex justify-content-between">
-                                                    <p>صندلی میز طراح</p>
-                                                    <p>(۱۸)</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- price  -->
-                                    <div class="section filter">
-                                        <div class="price-filter-range">
-                                            <form action="#">
-                                                <div id="slider-range"></div>
-                                                <div class="price-range d-flex justify-content-between align-items-center">
-                                                    <p>قیمت: <input type="text" id="amount"></p>
-                                                    <button type="submit">فیلتر</button>
-                                                </div>
-                                            </form>
+                                        <!-- color -->
+                                        <div class="section color">
+                                            <div class="title">
+                                                <h5>رنگ</h5>
+                                            </div>
+                                            <ul class="color-list">
+                                                {% for color in colors %}
+                                                    <li>
+                                                        <a class="d-flex justify-content-between">
+                                                            <input type="radio" name="color" value="{{ color.id }}">
+                                                            <p>{{ color.color }}</p>
+                                                            <p>({{ color.id }})</p>
+                                                        </a>
+                                                    </li>
+                                                    <hr>
+                                                {% endfor %}
+                                            </ul>
                                         </div>
-                                    </div>
-                                    <!-- color -->
-                                    <div class="section color">
-                                        <div class="title">
-                                            <h5>رنگ</h5>
+                                        <!-- size -->
+                                        <div class="section color">
+                                            <div class="title">
+                                                <h5>رنگ</h5>
+                                            </div>
+                                            <ul class="color-list">
+                                                {% for size in sizes %}
+                                                    <li>
+                                                        <a class="d-flex justify-content-between">
+                                                            <input type="radio" name="size" value="{{ size.id }}">
+                                                            <p>{{ size.size }}</p>
+                                                            <p>({{ size.id }})</p>
+                                                        </a>
+                                                    </li>
+                                                    <hr>
+                                                {% endfor %}
+                                            </ul>
                                         </div>
-                                        <ul class="color-list">
-                                            <li class="blue">
-                                                <a href="#!" class="d-flex justify-content-between">
-                                                    <p>آبی</p>
-                                                    <p>(۲)</p>
-                                                </a>
-                                            </li>
-                                            <li class="brown">
-                                                <a href="#!" class="d-flex justify-content-between">
-                                                    <p>قهوه‌ای</p>
-                                                    <p>(۳)</p>
-                                                </a>
-                                            </li>
-                                            <li class="green">
-                                                <a href="#!" class="d-flex justify-content-between">
-                                                    <p>سبز</p>
-                                                    <p>(۷)</p>
-                                                </a>
-                                            </li>
-                                            <li class="grey">
-                                                <a href="#!" class="d-flex justify-content-between">
-                                                    <p>خاکستری</p>
-                                                    <p>(۵)</p>
-                                                </a>
-                                            </li>
-                                            <li class="indigo">
-                                                <a href="#!" class="d-flex justify-content-between">
-                                                    <p>نیلی</p>
-                                                    <p>(۸)</p>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                        <!-- price  -->
+                                        <div class="section color">
+                                            <div class="title">
+                                                <h5>قیمت</h5>
+                                            </div>
+                                            <ul class="color-list">
+                                                {% for price in prices %}
+                                                    <li>
+                                                        <a class="d-flex justify-content-between">
+                                                            <input type="radio" name="price" value="{{ price.id }}">
+                                                            <p>شروع قیمت از: {{ price.min_price }}</p>
+                                                            <p>تا: {{ price.max_price }}</p>
+                                                        </a>
+                                                    </li>
+                                                    <hr>
+                                                {% endfor %}
+                                            </ul>
+                                            <br>
+                                            <div>
+                                                <button type="submit" class="button-style1">فیلتر کردن</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -306,15 +279,16 @@
                                 <div class="col-xl-12">
                                     <ul class="product-list">
                                         <!-- products start -->
+                                        {% for product in products %}
                                         <li class="item d-flex align-items-center">
                                             <div class="image">
-                                                <a href="shop-detail-left.html">
-                                                    <img src="assets/images/product/p1.png" alt="Product">
+                                                <a href="{% url 'products:products_detail' product.id product.slug %}">
+                                                    <img src="{{ product.image_1.url }}" alt="Product">
                                                 </a>
                                                 <div class="action">
                                                     <ul>
                                                         <li>
-                                                            <a href="wishlist.html">
+                                                            <a href="{% url 'products:products_detail' product.id product.slug %}">
                                                                 <i class="flaticon-heart"></i>
                                                                 <p class="my-tooltip">
                                                                     مورد علاقه
@@ -322,7 +296,7 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="cart.html">
+                                                            <a href="{% url 'products:products_detail' product.id product.slug %}">
                                                                 <i class="flaticon-shopping-cart-1"></i>
                                                                 <p class="my-tooltip">
                                                                     خرید
@@ -330,7 +304,7 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            <a href="{% url 'products:products_detail' product.id product.slug %}">
                                                                 <i class="flaticon-visibility"></i>
                                                                 <p class="my-tooltip">
                                                                     نمایش
@@ -338,7 +312,7 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="compare.html">
+                                                            <a href="{% url 'products:products_detail' product.id product.slug %}">
                                                                 <i class="flaticon-refresh"></i>
                                                                 <p class="my-tooltip">
                                                                     مقایسه
@@ -349,10 +323,10 @@
                                                 </div>
                                             </div>
                                             <div class="text">
-                                                <a href="shop-detail-left.html">
-                                                    <h6>ست مبل لوکس و شیک</h6>
+                                                <a href="{% url 'products:products_detail' product.id product.slug %}">
+                                                    <h6>{{ product.name }}</h6>
                                                 </a>
-                                                <p><span>۱ میلیون</span> - ۵۰۰۰۰۰ تومان</p>
+                                                <p> {{ product.price }} تومان</p>
                                                 <ul class="rating d-flex">
                                                     <li><i class="fas fa-star"></i></li>
                                                     <li><i class="fas fa-star"></i></li>
@@ -360,24 +334,34 @@
                                                     <li><i class="fas fa-star"></i></li>
                                                     <li><i class="fas fa-star"></i></li>
                                                 </ul>
-                                                <p class="desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-                                                <a href="#!" class="add-cart">خرید</a>
+                                                <p class="desc">{{ product.description }}</p>
+                                                <a href="{% url 'products:products_detail' product.id product.slug %}" class="add-cart">خرید</a>
                                             </div>
                                         </li>
+                                        {% endfor %}
                                         <!-- product end  -->
                                     </ul>
                                 </div>
                                 <!-- pagination -->
                                 <div class="col-lg-12">
                                     <div class="pages">
+                                        {% if products.has_other_pages %}
                                         <ul class="d-flex justify-content-center">
-                                            <li><a href="#!"><i class="flaticon-chevron"></i></a></li>
-                                            <li><a href="#!" class="active">۱</a></li>
-                                            <li><a href="#!">۲</a></li>
-                                            <li><a href="#!">۳</a></li>
-                                            <li><a href="#!">۴</a></li>
-                                            <li><a href="#!"><i class="flaticon-chevron-1"></i></a></li>
+                                            {% if products.has_previous %}
+                                            <li><a href="?page={{ products.previous_page_number }}"><i class="flaticon-chevron"></i></a></li>
+                                            {% endif %}
+                                            {% for i in products.paginator.page_range %}
+                                                {% if products.number == i %}
+                                                    <li><a class="active">{{ i }}</a></li>
+                                                {% else %}
+                                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if products.has_next %}
+                                                <li><a href="?page={{ products.next_page_number }}"><i class="flaticon-chevron-1"></i></a></li>
+                                            {% endif %}
                                         </ul>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -450,120 +434,6 @@
         </div>
     </section>
     <!-- end overview area -->
-
-    <!-- start product-detail modal -->
-    <div class="modal fade quick-view-modal" id="exampleModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-5 col-md-6">
-                            <div class="image-area">
-                                <div class="product-gallery swiper-container">
-                                    <div class="swiper-wrapper">
-                                        <div class="item swiper-slide">
-                                            <img id="zoom_01" src="assets/images/shop/img1.jpg" alt="Product" data-zoom-image="assets/images/shop/img1.jpg">
-                                        </div>
-                                        <div class="item swiper-slide">
-                                            <img id="zoom_02" src="assets/images/shop/img2.jpg" alt="Product" data-zoom-image="assets/images/shop/img2.jpg">
-                                        </div>
-                                        <div class="item swiper-slide">
-                                            <img id="zoom_03" src="assets/images/shop/img3.jpg" alt="Product" data-zoom-image="assets/images/shop/img3.jpg">
-                                        </div>
-                                        <div class="item swiper-slide">
-                                            <img id="zoom_04" src="assets/images/shop/img4.jpg" alt="Product" data-zoom-image="assets/images/shop/img4.jpg">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-thumb swiper-container">
-                                    <div class="swiper-wrapper">
-                                        <div class="item swiper-slide">
-                                            <img src="assets/images/shop/img-sm1.jpg" alt="Product">
-                                        </div>
-                                        <div class="item swiper-slide">
-                                            <img src="assets/images/shop/img-sm2.jpg" alt="Product">
-                                        </div>
-                                        <div class="item swiper-slide">
-                                            <img src="assets/images/shop/img-sm3.jpg" alt="Product">
-                                        </div>
-                                        <div class="item swiper-slide">
-                                            <img src="assets/images/shop/img-sm4.jpg" alt="Product">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-7 col-md-6">
-                            <div class="detail-content">
-                                <p class="stock">دسترسی:<span> در انبار</span></p>
-                                <h5>مجموعه های مبلمان لوکس طرح زندگی </h5>
-                                <div class="review-area d-flex align-items-center">
-                                    <ul class="rating d-flex">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                    <p>(۲ نظر مشتری)</p>
-                                </div>
-                                <h5>۵۰۰۰۰۰ تومان – <span>۱ میلیون</span></h5>
-                                <p class="desc">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است </p>
-
-                                <div class="color-pallate d-flex align-items-center">
-                                    <p>رنگ : </p>
-                                    <ul class="d-flex">
-                                        <li>
-                                            <a href="#!" class="blue"></a>
-                                        </li>
-                                        <li>
-                                            <a href="#!" class="red"></a>
-                                        </li>
-                                        <li>
-                                            <a href="#!" class="pink"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="category">
-                                    <p>دسته بندی : <a href="#!">خانه,</a> <a href="#!">تخت,</a> <a href="#!">مبل</a></p>
-                                    <p>برچسب : <a href="#!">خانه,</a> <a href="#!">مبلمان</a></p>
-                                </div>
-
-                                <div class="border-area">
-                                    <div class="cart-part d-flex align-items-center">
-                                        <div class="d-flex number-spinner">
-                                            <button data-dir="dwn" class="down-btn"><i class="fas fa-minus"></i></button>
-                                            <input type="text" class="form-control text-center input-value" value="1">
-                                            <button data-dir="up" class="up-btn"><i class="fas fa-plus"></i></button>
-                                        </div>
-                                        <a href="#!" class="cart">سبد خرید <span class="btn-dot"></span></a>
-                                        <div class="add-more d-flex align-items-center">
-                                            <a href="#!"><i class="flaticon-heart"></i></a>
-                                            <a href="#!"><i class="flaticon-refresh"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="share d-flex align-items-center">
-                                    <h5>اشتراک گذاری : </h5>
-                                    <ul class="d-flex">
-                                        <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#!"><i class="fab fa-pinterest-p"></i></a></li>
-                                        <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
-                                        <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end product-detail modal -->
 
     <!-- jquery -->
     <script src="{% static 'assets/plugins/jquery-3.4.1.min.js'%}"></script>

@@ -16,7 +16,9 @@ class CartDetail(View):
             item['update_quantity_form'] = CartAddProductForm(initial={
                                             'quantity': item['quantity'],
                                                 'override': True})
-        return render(request, 'cart/detail.html', {'cart': cart})
+        return render(request, 'cart/cart.html', {'cart': cart})
+    
+            
     
     
 
@@ -38,8 +40,8 @@ class CartAdd(View):
     
 
 class CartRemove(View):
-    def post(self, request, pk):
+    def get(self, request, product_id):
         cart = Cart(request)
-        product = get_object_or_404(Product, id=pk)
+        product = get_object_or_404(Product, id=product_id)
         cart.remove(product)
         return redirect('cart:cart_detail')

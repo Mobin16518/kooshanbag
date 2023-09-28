@@ -1,6 +1,6 @@
 from django.db import models
-from django.core.validators import MinValueValidator, \
-                                   MaxValueValidator
+from account.models import User
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200, 
@@ -36,19 +36,8 @@ class Color(models.Model):
     def __str__(self):
         return self.color
     
-
-
-class Image(models.Model):
-    image = models.ImageField(verbose_name="تصویر", 
-                              upload_to="product/more/image/%y/%m/%d")
     
-    
-    
-    class Meta:
-        verbose_name = "تصویر"
-        verbose_name_plural = "تصویر ها"
         
-
 
 
 class Size(models.Model):
@@ -64,6 +53,8 @@ class Size(models.Model):
     def __str__(self):
         return self.size
         
+        
+
     
     
 class Product(models.Model):
@@ -83,13 +74,13 @@ class Product(models.Model):
                              max_length=200)
     
     
-    image = models.ImageField(verbose_name="تصویر اصلی محصول",
-                               upload_to='products/%Y/%m/%d', blank=True)
+    image_1 = models.ImageField(verbose_name="تصویر اصلی محصول",
+                               upload_to='products/%Y/%m/%d', null=True)
     
-    images = models.ManyToManyField(Image, 
-                                    verbose_name="تصاویر محصول")
+    image_2 = models.ImageField(verbose_name="تصویر دوم محصول",
+                               upload_to='products/%Y/%m/%d', null=True)
     
-    description = models.TextField(verbose_name="توضیحات محصول", blank=True)
+    description = models.TextField(verbose_name="توضیحات محصول", null=True)
     
     colors = models.ManyToManyField(Color, 
                                     verbose_name="رنگ های موجود محصول")
@@ -122,3 +113,80 @@ class Product(models.Model):
 
 
 
+
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             verbose_name="کاربر", related_name="comments", null=True, blank=True)
+    
+    product = models.ForeignKey(Product,
+                                on_delete=models.CASCADE,
+                                verbose_name="محصول", related_name="comments", null=True, blank=True)
+    
+    comment = models.TextField(verbose_name="نظر کاربر")
+    
+    created = models.DateTimeField(auto_now_add=True)
+    
+    updated = models.DateTimeField(auto_now=True)
+    
+    
+    
+    class Meta:
+        verbose_name = "نظر"
+        verbose_name_plural = "نظرها"
+        
+        
+        
+    def __str__(self):
+        return f'{self.user.phone}----{self.product.name}'
+    
+
+
+
+class ProductDescription(models.Model):
+    product = models.ForeignKey(Product,
+                                on_delete=models.CASCADE,
+                                verbose_name="محصول", related_name="product_descriptions", null=True, blank=True)
+    
+    description = models.TextField(verbose_name="توضیحات")
+    
+    class Meta:
+        verbose_name = "توضیحات محصول"
+        verbose_name_plural = "توضیحات محصولات"
+        
+    def __str__(self):
+        return self.product.name
+    
+    
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product,
+                                on_delete=models.CASCADE,
+                                verbose_name="محصول", related_name="product_images", null=True, blank=True)
+    image = models.ImageField(verbose_name="تصویر", upload_to='products/images/%Y/%m/%d')
+    
+    
+    class Meta:
+        verbose_name ="تصویر محصولات"
+        verbose_name_plural = "تصاویر محصولات"
+        
+    
+    def __str__(self):
+        return f'{self.product.name}'
+    
+    
+    
+class Price(models.Model):
+    min_price = models.BigIntegerField(verbose_name="شروع قیمت")
+    max_price = models.BigIntegerField(verbose_name="اتمام قیمت")
+    
+    
+    class Meta:
+        verbose_name ="قیمت"
+        verbose_name_plural = "قیمت ها"
+    
+    
+    

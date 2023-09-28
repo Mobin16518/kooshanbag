@@ -1,30 +1,36 @@
 from django.contrib import admin
-from .models import(
-    Category,
-    Product,
-    Image,
-    Color,
-    Size
-)
+from . import models
 
 
-@admin.register(Category)
+@admin.register(models.Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
     
 
-admin.site.register(Color)
+admin.site.register(models.Color)
 
-admin.site.register(Size)
+admin.site.register(models.Size)
 
-admin.site.register(Image)
+admin.site.register(models.ProductImage)
+
+admin.site.register(models.Price)
 
 
-@admin.register(Product)
+
+@admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'price',
-                    'available', 'created', 'updated']
+    list_display = ['name', 'category', 'size', 'slug', 'price',
+                     'quantity', 'available', 'created', 'updated']
     list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'available']
     prepopulated_fields = {'slug': ('name',)}
+    filter_horizontal = ['colors']
+    
+
+admin.site.register(models.Comment)
+
+
+admin.site.register(models.ProductDescription)
+
+

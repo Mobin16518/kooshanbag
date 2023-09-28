@@ -49,8 +49,9 @@ class UserChangeForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : 'inputs'}), validators=[validators.EmailValidator])
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class' : 'inputs'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'inputs'}))
+    
 
 
 
