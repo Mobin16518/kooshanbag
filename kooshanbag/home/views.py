@@ -7,8 +7,10 @@ import random
 
 
 
+
 class Home(View):
     def get(self, request):
+        contacts = Contact.objects.all()
         products = Product.objects.all()
         contacts = Contact.objects.all()
         return render(request, 'home/index.html')

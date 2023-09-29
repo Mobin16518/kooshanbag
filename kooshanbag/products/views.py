@@ -8,9 +8,12 @@ from .forms import CommentForm
 
 
 
+contacts = Contact.objects.all()
+
+
+
 class ProductList(View):
     def get(self, request):
-        contacts = Contact.objects.all()
         products = Product.objects.filter(available=True)
         page_number = request.GET.get('page')
         paginator = Paginator(products, 1)
@@ -72,7 +75,8 @@ class ProductListFilter(TemplateView):
             'categories' : categories,
             'colors' : colors,
             'sizes' : sizes,
-            'prices' : prices
+            'prices' : prices,
+            'contacts' : contacts
         }
         return context
 
@@ -81,7 +85,6 @@ class ProductListFilter(TemplateView):
     
 class ProductDetail(View):
     def get(self, request, pk, slug):
-        contacts = Contact.objects.all()
         product = get_object_or_404(Product,
                                 id=pk,
                                 slug=slug,
@@ -99,9 +102,9 @@ class ProductDetail(View):
         if form.is_valid():
             cd = form.cleaned_data
             product = get_object_or_404(Product,
-                                id=pk,
-                                slug=slug,
-                                available=True)
+                                         id=pk,
+                                         slug=slug,
+                                         available=True)
             Comment.objects.create(
                 user = request.user, 
                 product = product,

@@ -15,7 +15,7 @@
     <!-- josefin font -->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 
-    <title>قالب چند منظوره فروشگاهی سوفست</title>
+    <title> کوشان بگ | پنل کاربر</title>
 
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer"
@@ -153,9 +153,6 @@
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">سفارشات</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">مرور</button>
                                 </li>
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="address-tab" data-bs-toggle="tab" data-bs-target="#address" type="button" role="tab" aria-controls="address" aria-selected="false">نشانی</button>
@@ -355,10 +352,13 @@
                                 <h5>حساب من</h5>
                             </div>
                             <ul>
-                                <li><a href="{% url 'account:user_dashbord' %}">اکانت من</a></li>
-                                <li><a href="{% url 'account:user_add_addres' %}">آدرس</a></li>
-                                <li><a href="{% url 'account:user_login' %}">ورود</a></li>
-                                <li><a href="{% url 'account:user_login' %}">ورود</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'account:user_dashbord' %}">اکانت من</a></li>
+                                    <li><a href="{% url 'account:user_add_addres' %}">آدرس</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'account:user_login' %}">ورود</a></li>
+                                    <li><a href="{% url 'account:user_register' %}">ثبت نام</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -368,12 +368,7 @@
                                 <h5>پشتیبانی</h5>
                             </div>
                             <ul>
-                                <li><a href="#!">کمک</a></li>
-                                <li><a href="contact.html">تماس با ما</a></li>
-                                <li><a href="#!">بازخورد</a></li>
-                                <li><a href="#!">خدمات مشتری</a></li>
-                                <li><a href="#!">رزرو</a></li>
-                                <li><a href="#!">مکان های فروشگاه</a></li>
+                                <li><a href="{% url 'contact:contact' %}">تماس با ما</a></li>
                             </ul>
                         </div>
                     </div>
@@ -425,12 +420,9 @@
                                 <h5>لینک های مفید</h5>
                             </div>
                             <ul>
-                                <li><a href="#!">حریم خصوصی</a></li>
-                                <li><a href="#!">نقشه سایت</a></li>
-                                <li><a href="#!">محل فروشگاه</a></li>
-                                <li><a href="my-account.html">اکانت من</a></li>
-                                <li><a href="#!">پیگیری سفارشات</a></li>
-                                <li><a href="#!">شرایط استفاده از خدمات</a></li>
+                                <li><a href="{% url 'products:products_list' %}">محصولات</a></li>
+                                <li><a href="{% url 'products:products_list_filter' %}">فیلتر محصولات</a></li>
+                                <li><a href="{% url 'contact:contact' %}">تماس با ما</a></li>
                             </ul>
                         </div>
                     </div>

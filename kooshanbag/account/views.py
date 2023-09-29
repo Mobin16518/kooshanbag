@@ -19,13 +19,19 @@ SMS = GAHSEDAK_API_KEY
 
 
 
+contacts = Contact.objects.all()
+
+
 class Userlogin(View):
     def get(self , request):
         if request.user.is_authenticated == True:
              return redirect('/')
         else:
             form = LoginForm
-            return render(request, 'account/login.html', {'form':form})
+            return render(request, 'account/login.html', {
+                'form' : form,
+                'contacts' : contacts
+            })
     
     def post(self, request):
         form = LoginForm(request.POST)
@@ -44,9 +50,11 @@ class UserRegister(View):
         if request.user.is_authenticated == True:
             return redirect('/')
         else:
-            contact = Contact.objects.all()
             form = RegisterForm()
-            return render(request, 'account/register.html', {'form':form, 'contact' : contact})
+            return render(request, 'account/register.html', {
+                'form' : form,
+                'contacts' : contacts
+            })
      
 
      def post(self, request):
@@ -56,13 +64,12 @@ class UserRegister(View):
             if cd['password'] == cd['password_conf']:
                 if len(cd['password_conf']) <= 8 and len(cd['password_conf']) >= 8 :
                     random_code = randint(100000, 999999)
-                    # code = SMS.verification({
-                    #     'reseptor' : cd['phone'],
-                    #     'template' : 'template_name',
-                    #     'type' : '1',
-                    #     'param1' : random_code
-                    # })
-                    print(random_code)
+                    SMS.verification({
+                        'reseptor' : cd['phone'],
+                        'template' : 'template_name',
+                        'type' : '1',
+                        'param1' : random_code
+                        })
                     token = get_random_string(length=100)
                     Otp.objects.create(email=cd['email'], phone=cd['phone'], password=cd['password'],
                                        f_name=cd['fname'], l_name=cd['lname'], otp_code=random_code, token=token)
@@ -82,7 +89,10 @@ class UseerCheckOtp(View):
             return redirect('/')
         else:
             form = CheckOtpForm
-            return render(request, 'account/otp.html', {'form':form})
+            return render(request, 'account/otp.html', {
+                'form' : form,
+                'contacts' : contacts
+            })
     
     def post(self, request):
         token = request.GET.get('token')
@@ -97,6 +107,7 @@ class UseerCheckOtp(View):
                 return redirect('/')
             else:
                 form.add_error('code', 'معتبر نیست')
+        return render(request, 'account/otp.html', {'form':form})
                 
 
 
@@ -115,7 +126,8 @@ class UserDashbord(View):
             user = request.user
             # Render the dashboard template
             return render(request, 'account/dashbord.html', {
-                'user' : user
+                'user' : user,
+                'contacts' : contacts
             })
         else:
             # Redirect to the login page if the user dashboard is not the same user
@@ -128,7 +140,6 @@ class UserAddAddres(View):
     def get(self, request):
         if request.user.is_authenticated == True:
             form = UserAddresForm
-            contacts = Contact.objects.all()
             return render(request, 'account/checkout.html', {
                 'form' : form,
                 'contacts' : contacts

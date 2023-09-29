@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from products.models import Product
+from contact.models import Contact
 from orders.forms import AddresChose
 from .cart import Cart
 from .forms import CartAddProductForm
 from .forms import CouponApplyForm
 
 
+
+contacts =Contact.objects.all()
 
 
 
@@ -19,9 +22,12 @@ class CartDetail(View):
             item['update_quantity_form'] = CartAddProductForm(initial={
                                             'quantity': item['quantity'],
                                                 'override': True})
-        return render(request, 'cart/cart.html', {'cart': cart,
-                                                  'coupon_apply_form' : coupon_apply_form, 
-                                                  'addres_form' : addres_form})
+        return render(request, 'cart/cart.html', {
+            'cart': cart,
+            'contacts' : contacts,
+            'addres_form' : addres_form,
+            'coupon_apply_form' : coupon_apply_form, 
+        })
     
         
 

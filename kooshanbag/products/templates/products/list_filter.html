@@ -1,8 +1,8 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 
 
 <head>
@@ -15,7 +15,7 @@
     <!-- josefin font -->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 
-    <title>قالب چند منظوره فروشگاهی سوفست</title>
+    <title> کوشان بگ | فیلتر محصولات</title>
 
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer"
@@ -47,10 +47,7 @@
 
     <!-- responsive -->
     <link rel="stylesheet" href="{% static 'assets/css/responsive.css'%}">
-
-    
-</head>
-
+</head>    
 <body>
     <!-- start preloader area -->
     <div class="preloader">
@@ -81,8 +78,8 @@
                             <!-- logo -->
                             <div class="col-lg-2 col-md-4 col-sm-5 col-6">
                                 <div class="logo">
-                                    <a href="/">
-                                        <img width="130px" height="130px" src="assets/images/home1/logo.png" alt="Logo" />
+                                    <a href="">
+                                        
                                     </a>
                                 </div>
                             </div>
@@ -95,8 +92,9 @@
                                             <li>
                                                 <a href="/">خانه</a>
                                             </li>
-                                            <li><a href="about.html">درباره ما</a></li>
-                                            <li><a href="contact.html">تماس با ما</a></li>
+                                            <li><a href="{% url 'contact:contact' %}">تماس با ما</a></li>
+                                            <li><a href="{% url 'products:products_list' %}">محصولات</a></li>
+                                            <li><a href="{% url 'products:products_list_filter' %}">فیلتر محصولات</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -107,8 +105,9 @@
                                             <li class="active">
                                                 <a href="/">خانه</a>
                                             </li>
-                                            <li><a href="about.html">درباره</a></li>
-                                            <li><a href="contact.html">تماس با ما</a></li>
+                                            <li><a href="{% url 'contact:contact' %}">تماس با ما</a></li>
+                                            <li><a href="{% url 'products:products_list' %}">محصولات</a></li>
+                                            <li><a href="{% url 'products:products_list_filter' %}">فیلتر محصولات</a></li>
                                         </ul>
                                     </div>
                                 </nav>
@@ -118,51 +117,15 @@
                                 <div class="notification">
                                     <ul class="d-flex justify-content-end">
                                         <li>
-                                            <a href="account.html">
+                                            <a href="{% url 'account:user_dashbord' %}">
                                                 <i class="flaticon-user-1"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="wishlist.html">
-                                                <i class="flaticon-heart"></i>
-                                                <span class="quantity">۰۱</span>
-                                            </a>
-                                        </li>
-                                        <li>
                                             <div class="dropdown">
-                                                <button class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a href="{% url 'cart:cart_detail' %}" class="dropdown-toggle">
                                                     <i class="flaticon-shopping-cart-1"></i>
-                                                    <span class="quantity">۰۲</span>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <div class="heading d-flex justify-content-between">
-                                                        <h5>۳ مورد</h5>
-                                                        <a href="cart.html">دیدن سبد خرید</a>
-                                                    </div>
-                                                    <ul>
-                                                        <li>
-                                                            <div class="d-flex position-relative">
-                                                                <img src="assets/images/home1/product/img1.jpg" alt="Product Image" />
-                                                                <div class="text">
-                                                                    <a href="shop-detail-left.html">
-                                                                        <h5>لباس نخی سایز بزرگ</h5>
-                                                                    </a>
-                                                                    <p>۱ X ۱۳۵۰۰۰</p>
-                                                                    <a href="#!" class="icon">
-                                                                        <i class="far fa-times-circle"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="total d-flex justify-content-between">
-                                                        <p>جمع</p>
-                                                        <p>۱۳۵۰۰۰</p>
-                                                    </div>
-                                                    <div class="check">
-                                                        <a href="checkout.html" class="button-style1">پرداخت <span class="btn-dot"></span></a>
-                                                    </div>
-                                                </div>
+                                                </a>
                                             </div>
                                         </li>
                                     </ul>
@@ -434,6 +397,110 @@
         </div>
     </section>
     <!-- end overview area -->
+
+    <footer class="footer">
+        <!-- start footer-top area -->
+        <section class="footer-top pb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="content">
+                            
+                            <div class="follow">
+                                <h6>راه های ارتباطی</h6>
+                                <ul class="d-flex social">
+                                    {% for contact in contacts %}
+                                    <li><a href="{{ contact.instagram_url }}"><i class="fab fa-instagram"></i></a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="content">
+                            <div class="title">
+                                <h5>حساب من</h5>
+                            </div>
+                            <ul>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="{% url 'account:user_dashbord' %}">اکانت من</a></li>
+                                    <li><a href="{% url 'account:user_add_addres' %}">آدرس</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'account:user_login' %}">ورود</a></li>
+                                    <li><a href="{% url 'account:user_register' %}">ثبت نام</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="content">
+                            <div class="title">
+                                <h5>پشتیبانی</h5>
+                            </div>
+                            <ul>
+                                <li><a href="{% url 'contact:contact' %}">تماس با ما</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="content">
+                            <div class="title">
+                                <h5>تماس با ما</h5>
+                            </div>
+                            <ul class="address">
+                                <li class="d-flex align-items-center">
+                                    <div class="icon">
+                                        <i class="flaticon-phone"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h6>تماس</h6>
+                                        {% for phone in contacts %}
+                                        <p>{{ phone.phone }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <div class="icon">
+                                        <i class="flaticon-mail"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h6>ایمیل</h6>
+                                        {% for email in contacts %}
+                                        <p>{{ email.email }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <div class="icon">
+                                        <i class="flaticon-placeholder"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h6>اینستاگرام</h6>
+                                        {% for id in contacts %}
+                                        <p>{{ id.instagram_id }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6">
+                        <div class="content">
+                            <div class="title">
+                                <h5>لینک های مفید</h5>
+                            </div>
+                            <ul>
+                                <li><a href="{% url 'products:products_list' %}">محصولات</a></li>
+                                <li><a href="{% url 'products:products_list_filter' %}">فیلتر محصولات</a></li>
+                                <li><a href="{% url 'contact:contact' %}">تماس با ما</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </footer>
+    <!-- end footer area -->
 
     <!-- jquery -->
     <script src="{% static 'assets/plugins/jquery-3.4.1.min.js'%}"></script>
