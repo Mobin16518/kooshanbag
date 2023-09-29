@@ -39,5 +39,6 @@ class OrderCreate(View):
             # set the order in the session
             request.session['order_id'] = order.id
             # redirect for payment
-            return redirect('/')
+            return redirect('payment:zarinpal_send_request')
+        return redirect('cart:cart_detail')
             

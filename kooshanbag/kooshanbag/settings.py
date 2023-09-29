@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'contact.apps.ContactConfig',
     'coupons.apps.CouponsConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,10 @@ GAHSEDAK_API_KEY =  ghasedakpack.Ghasedak("")
 
 # CART_SESSION_ID
 CART_SESSION_ID = "cart"
+
+
+
+#   Zarinpal --api--merchand
+# SANDBOX MODE
+MERCHANT = "00000000-0000-0000-0000-000000000000"
+SANDBOX = True

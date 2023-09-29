@@ -34,6 +34,7 @@ class Order(models.Model):
     discount = models.IntegerField(default=0,
                                    validators=[MinValueValidator(0),
                                        MaxValueValidator(100)], verbose_name="درصد تخفیف")
+    total_price = models.BigIntegerField(verbose_name="قیمت")
 
     class Meta:
         verbose_name = "سفارش"
