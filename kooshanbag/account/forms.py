@@ -66,3 +66,15 @@ class RegisterForm(forms.Form):
 
 class CheckOtpForm(forms.Form):
     otp_code = forms.CharField(widget=forms.TextInput(attrs={'class':'inputs'}))
+    
+    
+    
+class UserAddresForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class' : 'bill-input'}), validators=[validators.EmailValidator])
+    phone = forms.CharField(widget=forms.TextInput(attrs={'class':'bill-input'}), validators=[validators.MaxLengthValidator(12)])
+    f_name = forms.CharField(widget=forms.TextInput(attrs={'class':'bill-input'}))
+    l_name = forms.CharField(widget=forms.TextInput(attrs={'class':'bill-input'}))
+    plak = forms.CharField(widget=forms.TextInput(attrs={'class':'bill-input'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'class':'bill-input'}))
+    postal_code = forms.CharField(widget=forms.TextInput(attrs={'class':'bill-input'}))
+    addres = forms.CharField(widget=forms.TextInput(attrs={'class':'bill-input'}))

@@ -5,11 +5,12 @@ from django.urls import reverse
 from kooshanbag.settings import GAHSEDAK_API_KEY
 from django.views.generic import View
 from contact.models import Contact
-from .models import User, Otp
+from .models import User, Otp, UserAddres
 from .forms import (
     LoginForm,
     RegisterForm,
-    CheckOtpForm
+    CheckOtpForm,
+    UserAddresForm
 )
 from random import randint
 
@@ -119,3 +120,41 @@ class UserDashbord(View):
         else:
             # Redirect to the login page if the user dashboard is not the same user
             return redirect('account/user_login')
+
+
+
+
+class UserAddAddres(View):
+    def get(self, request):
+        if request.user.is_authenticated == True:
+            form = UserAddresForm
+            contacts = Contact.objects.all()
+            return render(request, 'account/checkout.html', {
+                'form' : form,
+                'contacts' : contacts
+            })
+        else:
+            return redirect('account:user_login')
+    
+    
+    def post(self, request):
+        user = request.user
+        form = UserAddresForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            UserAddres.objects.create(
+                user = user,
+                phone = cd['phone'],
+                email = cd['email'],
+                f_name = cd['f_name'],
+                l_name = cd['l_name'],
+                city = cd['city'],
+                plak = cd['plak'],
+                postal_code = cd['postal_code']
+            )
+            next_page = request.GET.get('next')
+            if next_page:
+                return redirect(next_page)
+            return redirect('/')
+        return render(request, 'account/checkout.html', {'form':form})
+            

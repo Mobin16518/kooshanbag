@@ -6,10 +6,11 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include("home.urls")),
-    path('product/', include(('products.urls', 'product'), namespace='products')),
+    path('admin/', admin.site.urls),
+    path('cart/', include(('cart.urls', 'cart'), namespace='cart')),
     path('account/', include(('account.urls', 'account'), namespace='account')),
     path('contact/', include(('contact.urls', 'contact'), namespace='contact')),
-    path('cart/', include(('cart.urls', 'cart'), namespace='cart')),
+    path('coupons/', include(('coupons.urls', 'coupons'), namespace='coupons')),
+    path('product/', include(('products.urls', 'product'), namespace='products')),
 ]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

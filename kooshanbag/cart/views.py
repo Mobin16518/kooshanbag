@@ -3,7 +3,7 @@ from django.views.generic import View
 from products.models import Product
 from .cart import Cart
 from .forms import CartAddProductForm
-
+from .forms import CouponApplyForm
 
 
 
@@ -12,15 +12,15 @@ from .forms import CartAddProductForm
 class CartDetail(View):
     def get(self, request):
         cart = Cart(request)
+        coupon_apply_form = CouponApplyForm()
         for item in cart:
             item['update_quantity_form'] = CartAddProductForm(initial={
                                             'quantity': item['quantity'],
                                                 'override': True})
-        return render(request, 'cart/cart.html', {'cart': cart})
+        return render(request, 'cart/cart.html', {'cart': cart,
+                                                  'coupon_apply_form' : coupon_apply_form})
     
-            
-    
-    
+        
 
 
 class CartAdd(View):

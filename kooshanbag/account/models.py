@@ -32,10 +32,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
-
-
-    
     
     class Meta:
         verbose_name = 'دوره کاربر'
@@ -104,7 +100,7 @@ class Otp(models.Model):
         verbose_name="ایمیل",
         max_length=255,
         )
-    phone = models.IntegerField(verbose_name="شماره تلفن", max_length=11)
+    phone = models.IntegerField(verbose_name="شماره تلفن")
     
     f_name = models.CharField(verbose_name="نام",
                               max_length=200, null=True)
@@ -125,4 +121,42 @@ class Otp(models.Model):
 
     def __str__(self):
         return self.email
+    
+
+
+
+class UserAddres(models.Model):
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name="user_addres", verbose_name="کاربر")
+    
+    phone = models.CharField(max_length=200, 
+                             verbose_name="شماره تلقن")
+    
+    email = models.EmailField(verbose_name="ایمیل")
+    
+    f_name = models.CharField(max_length=200, 
+                            verbose_name="نلم")
+    
+    l_name = models.CharField(max_length=200,
+                              verbose_name="نام خانوادگی")
+    
+    city = models.CharField(max_length=200,
+                            verbose_name="شهر")
+    
+    plak = models.CharField(max_length=200,
+                            verbose_name="پلاک")
+    
+    postal_code = models.CharField(max_length=200, 
+                                   verbose_name="کد پستی")
+    
+    addres = models.CharField(max_length=300, verbose_name="آدرس")
+    
+    
+    class Meta:
+        verbose_name = "آدرس کاربر ها"
+        verbose_name_plural = "آدرس های کاربر ها"
+        
+    
+    
     

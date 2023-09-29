@@ -1,5 +1,6 @@
 from django.conf import settings
 from products.models import Product
+from coupons.models import Coupon
 
 
 
@@ -15,6 +16,8 @@ class Cart:
             # save an empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
+        # store current applied coupon
+        self.coupon_id = self.session.get('coupon_id')
     
     
     def add(self, product, color, quantity=1, override_quantity=False):
@@ -74,3 +77,20 @@ class Cart:
 
     def get_total_price(self):
         return sum(int(item['price']) * item['quantity'] for item in self.cart.values())
+    
+    @property
+    def coupon(self):
+        if self.coupon_id:
+            try:
+                return Coupon.objects.get(id=self.coupon_id)
+            except Coupon.DoesNotExist:
+                pass
+        return None
+
+    def get_discount(self):
+        if self.coupon:
+            return (self.coupon.discount / int(100))  * self.get_total_price()
+        return int(0)
+
+    def get_total_price_after_discount(self):
+        return int(self.get_total_price()) - int(self.get_discount())

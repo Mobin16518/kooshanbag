@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import User, Otp
+from .models import User, UserAddres
 
 
 
@@ -13,6 +13,7 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ["is_admin"]
     filter_horizontal = []
 
+admin.site.register(UserAddres)
 
 
 admin.site.unregister(Group)
