@@ -114,12 +114,12 @@ class UserDashbord(View):
         if request.user.is_authenticated == True:
             user = request.user
             # Render the dashboard template
-            return render(request, 'dashboard.html', {
+            return render(request, 'account/dashbord.html', {
                 'user' : user
             })
         else:
             # Redirect to the login page if the user dashboard is not the same user
-            return redirect('account/user_login')
+            return redirect('account:user_login')
 
 
 

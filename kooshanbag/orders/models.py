@@ -73,6 +73,10 @@ class OrderItem(models.Model):
                                 verbose_name="محصولات سفارش")
     price = models.BigIntegerField(verbose_name="قیمت")
     quantity = models.PositiveIntegerField(default=1)
+    color = models.CharField(max_length=200, 
+                             verbose_name="رنگ")
+    size = models.CharField(max_length=200,
+                            verbose_name="سایز")
 
     def __str__(self):
         return str(self.id)

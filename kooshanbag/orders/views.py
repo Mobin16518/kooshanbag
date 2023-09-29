@@ -25,6 +25,7 @@ class OrderCreate(View):
                     city = instance.city,
                     user = instance.user,
                     paid = False,
+                    total_price = cart.get_total_price_after_discount()
                 )
             if cart.coupon:
                 order.coupon = cart.coupon
@@ -39,6 +40,6 @@ class OrderCreate(View):
             # set the order in the session
             request.session['order_id'] = order.id
             # redirect for payment
-            return redirect('payment:zarinpal_send_request')
+            return redirect(reverse('payment:zarinpal_send_request'))
         return redirect('cart:cart_detail')
             

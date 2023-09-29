@@ -14,4 +14,5 @@ urlpatterns = [
     path('coupons/', include(('coupons.urls', 'coupons'), namespace='coupons')),
     path('product/', include(('products.urls', 'product'), namespace='products')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
+    path('payment/', include(('payment.urls', 'payment'), namespace='payment')),
 ]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

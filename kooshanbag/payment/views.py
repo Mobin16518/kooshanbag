@@ -23,23 +23,24 @@ ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
 phone = 'YOUR_PHONE_NUMBER'  # Optional
 # Important: need to edit for realy server.
-CallbackURL = 'http://127.0.0.1:8080/verify/'
+CallbackURL = 'http://127.0.0.1:8080/orders/verify/'
 
 
 
 class ZarinpalSendRequest(View):
-    def post(self, request, pk):
+    def post(self, request):
+        order_id = request.session.get('order_id', None)
         instance = get_object_or_404(
             Order,
-            id = pk,
+            id = order_id,
             user = request.user
-        )
+            )
         request.session['order_id'] = str(instance.id)
         data = {
         "MerchantID": settings.MERCHANT,
-        "Amount": instance.price,
+        "Amount": instance.total_price,
         "Description": description,
-        "Phone": phone,
+        "Phone": instance.user.phone,
         "CallbackURL": CallbackURL,
         }
         data = json.dumps(data)
