@@ -237,6 +237,8 @@
                             </div>
                             {% if request.user.is_authenticated %}
                                 {% if request.user.user_addres.all %}
+                                <form action="{% url 'orders:order_create' %}" method="post">
+                                    {% csrf_token %}
                                     <div class="ship">
                                         <p>آدرس های شما:</p>
                                         {% for addres in request.user.user_addres.all %}
@@ -245,7 +247,7 @@
                                                     <span> شهر : ({{ addres.city }})</span>
                                                     <span> کد پستی : ({{ addres.postal_code }})</span>
                                                 </span>
-                                                <input type="radio" name="radio">
+                                                <input type="radio" name="addres" value="{{ addres.id }}">
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -255,12 +257,18 @@
                                             <h6>مجموع</h6>
                                             <p>{{ cart.get_total_price_after_discount }} تومان</p>
                                         </div>
-                                        <a href="checkout.html">پرداخت <span class="btn-dot"></span></a>
                                     </div>
+                                    <br>
+                                    <div>
+                                        <button type="submit" class="button-style1">پرداخت</button>
+                                    </div>
+                                    <br>
+                                    <br>
                                     <div class="checkout">
                                         <p>شما می توانید آدرسی دیگر برای سفارش خود ثیت کنید</p>
                                         <a href="{% url 'account:user_add_addres'%}?next={% url 'cart:cart_detail'%}">اضافه کردن آدرس<span class="btn-dot"></span></a>
                                     </div>
+                                </form>
                                 {% else %}
                                     <div class="checkout">
                                         <p>برای ثیت سفارش باید آدرس خود را ثیت کنید</p>
@@ -288,6 +296,8 @@
                         {% else %}
                             {% if request.user.is_authenticated %}
                                 {% if request.user.user_addres.all %}
+                                <form action="{% url 'orders:order_create' %}" method="post">
+                                    {% csrf_token %}
                                     <div class="ship">
                                         <p>آدرس های شما:</p>
                                         {% for addres in request.user.user_addres.all %}
@@ -296,7 +306,7 @@
                                                     <span> شهر : ({{ addres.city }})</span>
                                                     <span> کد پستی : ({{ addres.postal_code }})</span>
                                                 </span>
-                                                <input type="radio" name="radio">
+                                                <input type="radio" name="addres" value="{{ addres.id }}">
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -304,14 +314,20 @@
                                     <div class="checkout">
                                         <div class="d-flex justify-content-between">
                                             <h6>مجموع</h6>
-                                            <p>{{ cart.get_total_price_after }} تومان</p>
+                                            <p>{{ cart.get_total_price_after_discount }} تومان</p>
                                         </div>
-                                        <a href="checkout.html">پرداخت <span class="btn-dot"></span></a>
                                     </div>
+                                    <br>
+                                    <div>
+                                        <button type="submit" class="button-style1">پرداخت</button>
+                                    </div>
+                                    <br>
+                                    <br>
                                     <div class="checkout">
                                         <p>شما می توانید آدرسی دیگر برای سفارش خود ثیت کنید</p>
                                         <a href="{% url 'account:user_add_addres'%}?next={% url 'cart:cart_detail'%}">اضافه کردن آدرس<span class="btn-dot"></span></a>
                                     </div>
+                                </form>
                                 {% else %}
                                     <div class="checkout">
                                         <p>برای ثیت سفارش باید آدرس خود را ثیت کنید</p>
