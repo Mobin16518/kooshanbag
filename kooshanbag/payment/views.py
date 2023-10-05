@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.conf import settings
 import requests
 import json
@@ -28,39 +28,39 @@ CallbackURL = 'http://127.0.0.1:8080/orders/verify/'
 
 
 class ZarinpalSendRequest(View):
-    def post(self, request):
-        order_id = request.session.get('order_id', None)
-        instance = get_object_or_404(
-            Order,
-            id = order_id,
-            user = request.user
-            )
-        request.session['order_id'] = str(instance.id)
-        data = {
-        "MerchantID": settings.MERCHANT,
-        "Amount": instance.total_price,
-        "Description": description,
-        "Phone": instance.user.phone,
-        "CallbackURL": CallbackURL,
-        }
-        data = json.dumps(data)
-        # set content length by data
-        headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
-        try:
-            response = requests.post(ZP_API_REQUEST, data=data, headers=headers, timeout=10)
+    def get(self, request, pk):
+        # instance = get_object_or_404(
+        #     Order,
+        #     id = pk,
+        #     user = request.user
+        #     )
+        # request.session['order_id'] = str(instance.id)
+        # data = {
+        # "MerchantID": settings.MERCHANT,
+        # "Amount": instance.total_price,
+        # "Description": description,
+        # "Phone": instance.user.phone,
+        # "CallbackURL": CallbackURL,
+        # }
+        # data = json.dumps(data)
+        # # set content length by data
+        # headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
+        # try:
+        #     response = requests.post(ZP_API_REQUEST, data=data, headers=headers, timeout=10)
 
-            if response.status_code == 200:
-                response = response.json()
-                if response['Status'] == 100:
-                    return {'status': True, 'url': ZP_API_STARTPAY + str(response['Authority']), 'authority': response['Authority']}
-                else:
-                    return {'status': False, 'code': str(response['Status'])}
-            return response
+        #     if response.status_code == 200:
+        #         response = response.json()
+        #         if response['Status'] == 100:
+        #             return {'status': True, 'url': ZP_API_STARTPAY + str(response['Authority']), 'authority': response['Authority']}
+        #         else:
+        #             return {'status': False, 'code': str(response['Status'])}
+        #     return response
     
-        except requests.exceptions.Timeout:
-            return {'status': False, 'code': 'timeout'}
-        except requests.exceptions.ConnectionError:
-            return {'status': False, 'code': 'connection error'}
+        # except requests.exceptions.Timeout:
+        #     return {'status': False, 'code': 'timeout'}
+        # except requests.exceptions.ConnectionError:
+        #     return {'status': False, 'code': 'connection error'}
+        return redirect('/')
 
 
 

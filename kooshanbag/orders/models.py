@@ -71,8 +71,11 @@ class OrderItem(models.Model):
                                 on_delete=models.CASCADE,
                                 related_name='order_items',
                                 verbose_name="محصولات سفارش")
+    
     price = models.BigIntegerField(verbose_name="قیمت")
+    
     quantity = models.PositiveIntegerField(default=1)
+    
     color = models.CharField(max_length=200, 
                              verbose_name="رنگ")
     size = models.CharField(max_length=200,

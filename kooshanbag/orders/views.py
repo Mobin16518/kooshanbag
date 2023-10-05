@@ -35,11 +35,10 @@ class OrderCreate(View):
                 OrderItem.objects.create(order=order,
                                         product=item['product'],
                                         price=item['price'],
-                                        quantity=item['quantity'])
+                                        quantity=item['quantity'],
+                                        color=item['color'])
             cart.clear()
-            # set the order in the session
-            request.session['order_id'] = order.id
             # redirect for payment
-            return redirect(reverse('payment:zarinpal_send_request'))
+            return redirect(reverse('payment:zarinpal_send_request', args=[order.id]))
         return redirect('cart:cart_detail')
             

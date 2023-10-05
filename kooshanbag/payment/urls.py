@@ -1,9 +1,12 @@
 from django.urls import path
-from . import views
+from .views import(
+    ZarinpalSendRequest,
+    ZarinpalVerify
+)
 
 appp_name = "payment"
 
 urlpatterns = [
-    path('zarinpal/send/', views.ZarinpalSendRequest.as_view(), name = "zarinpal_send_request"),
-    path('zarinpal/verify/', views.ZarinpalVerify.as_view(), name="zarinpal_verify")
+    path('zarinpal/send/<int:pk>/', ZarinpalSendRequest.as_view(), name='zarinpal_send_request'),
+    path('zarinpal/verify/', ZarinpalVerify.as_view(), name="zarinpal_verify")
 ]

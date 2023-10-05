@@ -19,7 +19,7 @@ class ContactUs(View):
     def post(self, request):
         form = UserContactForm(request.POST)
         if form.is_valid():
-            cd = form.changed_data
+            cd = form.cleaned_data
             UserContact.objects.create(
                 name = cd['name'],
                 phone = cd['phone'],

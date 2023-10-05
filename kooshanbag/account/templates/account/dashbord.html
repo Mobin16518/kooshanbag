@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--==== favicon css ====-->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.jpg' %}" type="image/x-icon" />
 
     <!-- josefin font -->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -204,7 +204,7 @@
                                                                 <td><a href="#!">ORD{{ orders.id }}</a></td>
                                                                 <td>{{ orders.created }}</td>
                                                                 <td>{{ orders.total_price }} تومان</td>
-                                                                <td>انتظار <a href="{% url 'payment:zarinpal_send_request' %}" class="pay">پرداخت</a></td>
+                                                                <td>انتظار <a href="{% url 'payment:zarinpal_send_request' orders.id %}" class="pay">پرداخت</a></td>
                                                                 <td>انتظار</td>>
                                                             </tr>
                                                         {% endif %}

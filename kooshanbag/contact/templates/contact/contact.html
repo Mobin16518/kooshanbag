@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!--==== favicon css ====-->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.jpg' %}" type="image/x-icon" />
 
     <!-- josefin font -->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -210,35 +210,36 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <form action="#!">
+                            <form action="" method="post">
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <label for="name">
-                                            <input type="text" id="name" placeholder="نام" class="inputs">
+                                            {{ form.name }}
                                             <i class="flaticon-user-1"></i>
                                         </label>
                                     </div>
                                     <div class="col-lg-6">
                                         <label for="email">
-                                            <input type="email" id="email" placeholder="ایمیل" class="inputs">
+                                            {{ form.email }}
                                             <i class="flaticon-mail-open"></i>
                                         </label>
                                     </div>
                                     <div class="col-lg-6">
                                         <label for="phn">
-                                            <input type="tel" id="phn" placeholder="تلفن" class="inputs">
+                                            {{ form.phone }}
                                             <i class="flaticon-phone"></i>
                                         </label>
                                     </div>
                                     <div class="col-lg-6">
                                         <label for="sub">
-                                            <input type="text" id="sub" placeholder="موضوع" class="inputs">
+                                            {{ form.title }}
                                             <i class="far fa-edit"></i>
                                         </label>
                                     </div>
                                     <div class="col-lg-12">
                                         <label for="msg" class="msg">
-                                            <textarea class="inputs" id="msg" placeholder="پیام"></textarea>
+                                            {{ form.text }}
                                             <i class="fas fa-comment-dots"></i>
                                         </label>
                                     </div>
